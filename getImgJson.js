@@ -5,14 +5,19 @@ var fs       =  require('fs');
 // path 为你要获取图片信息的目录；
 var path = '/auto/2016/1125/nissan_wap-2/img';
 
+
+path = /^\//.test(path) ? path : ('/' + path);
+
+
 getDir(path,function(over){
 	
     console.log('回调函数开始');
 
     var newArr = [];
     var dirName = path.split('/').splice(0,path.split('/').length-1).join('/');
+    var rootDir = /\\$/.test(__dirname) ? __dirname : __dirname.replace('\\','/');
 
-    var reg = new RegExp(__dirname+dirName);
+    var reg = new RegExp(rootDir+dirName);
 
     over.forEach(function(n){
        newArr.push(n.replace(/\\/g,'/').replace(reg,'')); 
